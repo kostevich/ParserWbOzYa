@@ -1,5 +1,6 @@
-from dublib.Terminalyzer import Command, Terminalyzer
-from dublib.Methods import ReadJSON, MakeRootDirectories
+from dublib.CLI.Terminalyzer import Command, Terminalyzer
+from dublib.Methods.JSON import ReadJSON
+from dublib.Methods.Filesystem import MakeRootDirectories
 from Source.Reader import Reader
 from Source.Parser import Parser
 from Source.Writer import Writer
@@ -22,21 +23,20 @@ CommandsList.append(Com)
 
 # Создание команды: login.
 Com = Command("login")
-Com.add_flag_position(["wb"])
-Com.add_flag_position(["oz"])
-Com.add_flag_position(["ya"])
+Com.add_flag("wb")
+Com.add_flag("oz")
+Com.add_flag("ya")
 CommandsList.append(Com)
 
 # Создание команды: parse.
 Com = Command("parse")
-Com.add_flag_position(["wb"])
-Com.add_flag_position(["oz"])
-Com.add_flag_position(["ya"])
+Com.add_flag("wb")
+Com.add_flag("oz")
+Com.add_flag("ya")
 CommandsList.append(Com)
 
 # Инициализация обработчика консольных аргументов.
 CAC = Terminalyzer()
-
 # Получение информации о проверке команд. 
 CommandDataStruct = CAC.check_commands(CommandsList)
 
@@ -53,7 +53,7 @@ if "setup" == CommandDataStruct.name:
 
 # Обработка команды: login.
 if "login" == CommandDataStruct.name:
-	parser = Parser(False)
+	parser = Parser(True)
 	
 	if "wb" in CommandDataStruct.flags: parser.LogInWildberries()
 

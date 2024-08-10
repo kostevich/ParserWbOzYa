@@ -13,7 +13,8 @@ class Writer:
 					"LinkWb": [],
 					"Wb1": [],
 					"Wb2": [],
-					"Wb3": []
+					"Wb3": [], 
+					"wb_code": []
 				}
 		self.__BufferOz = {
 					"Модель": [],
@@ -22,6 +23,7 @@ class Writer:
 					"Oz1": [],
 					"Oz2": [],
 					"Oz3": [],
+					"ozon_code": []
 				}
 		self.__BufferYa = {
 					"Модель": [],
@@ -29,7 +31,8 @@ class Writer:
 					"LinkYa": [],
 					"Ya1": [],
 					"Ya2": [],
-					"Ya3": []
+					"Ya3": [],
+					"yandex_code": []
 				}	
 	
 	def WriteExcel(self, md, flags):
@@ -40,11 +43,11 @@ class Writer:
 			Model = key
 			name = md[key]["name"]
 			wildberries_link = md[key]["wildberries_link"]
-			wildberries_price_main = md[key]["wildberries_price_main"]
-			wildberries_price_secondary = md[key]["wildberries_price_secondary"]
-			wildberries_price_discount = md[key]["wildberries_price_discount"]
 			ozon_link = md[key]["ozon_link"]
 			yandex_link = md[key]["yandex_link"]
+			wb_code = md[key]["wb_code"]
+			ozon_code = md[key]["ozon_code"]
+			yandex_code = md[key]["yandex_code"]
 			wildberries_price_main = md[key]["wildberries_price_main"]
 			wildberries_price_secondary = md[key]["wildberries_price_secondary"]
 			wildberries_price_discount = md[key]["wildberries_price_discount"]
@@ -54,6 +57,7 @@ class Writer:
 			yandex_price_main = md[key]["yandex_price_main"]
 			yandex_price_secondary = md[key]["yandex_price_secondary"]
 			yandex_price_discount = md[key]["yandex_price_discount"]
+			
 
 			if wildberries_link: wildberries_link = f"=HYPERLINK(\"{wildberries_link}\", \"ссылка\")"
 			if ozon_link: ozon_link = f"=HYPERLINK(\"{ozon_link}\", \"ссылка\")"
@@ -67,6 +71,8 @@ class Writer:
 					self.__BufferWb["Wb1"].append(wildberries_price_discount)
 					self.__BufferWb["Wb2"].append(wildberries_price_main)
 					self.__BufferWb["Wb3"].append(wildberries_price_secondary)
+					self.__BufferWb["wb_code"].append(wb_code)
+
 				df = pandas.DataFrame.from_dict(self.__BufferWb)
 				df.to_excel(f"Output/{"wb_"}{today}.xlsx", index= False)
 
@@ -79,6 +85,8 @@ class Writer:
 					self.__BufferOz["Oz1"].append(ozon_price_discount)
 					self.__BufferOz["Oz2"].append(ozon_price_main)
 					self.__BufferOz["Oz3"].append(ozon_price_secondary)
+					self.__BufferOz["ozon_code"].append(ozon_code)
+
 				df = pandas.DataFrame.from_dict(self.__BufferOz)
 				df.to_excel(f"Output/oz_{today}.xlsx", index= False)
 
@@ -90,5 +98,7 @@ class Writer:
 					self.__BufferYa["Ya1"].append(yandex_price_discount)
 					self.__BufferYa["Ya2"].append(yandex_price_main)
 					self.__BufferYa["Ya3"].append(yandex_price_secondary)
+					self.__BufferYa["yandex_code"].append(yandex_code)
+					
 				df = pandas.DataFrame.from_dict(self.__BufferYa)
 				df.to_excel(f"Output/ya_{today}.xlsx", index= False)

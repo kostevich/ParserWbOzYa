@@ -2,6 +2,6 @@ pandas
 openpyxl
 selenium
 beautifulsoup4
-dublib
+dublib ==0.11.3
 undetected_chromedriver
 setuptools

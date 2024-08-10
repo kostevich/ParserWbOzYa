@@ -5,7 +5,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service as ChromeService
 import undetected_chromedriver as uc
 from selenium.webdriver.common.by import By
-from dublib.Methods import ReadJSON
+from dublib.Methods.JSON import ReadJSON
 import os
 import sys
 

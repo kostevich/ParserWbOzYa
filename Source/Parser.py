@@ -299,6 +299,7 @@ class Parser:
 			PriceMain = None
 			PriceSecondary = None
 			PriceDiscount = None
+			PriceThird = None
 			Name = data[Model]["name"]
 			
 			# Если для модели имеется ссылка на страницу товара.
@@ -317,10 +318,14 @@ class Parser:
 				# Получение главной цены.
 				if PriceMainTag:
 					PriceMainOld = PriceMainTag.find("s")
-					if PriceMainOld: PriceMainOld.decompose()
+
+					if PriceMainOld: 
+						PriceThird = PriceMainOld.get_text()
+						PriceMainOld.decompose()
+
 					PriceMain = PriceMainTag.get_text()
 					PriceMain = PriceMain.replace("без:", "").replace("Вместо:", "").replace(" ", "").replace("₽", "").replace("\u2009", "").strip()
-
+					
 				# Получение вторичной цены.
 				if PriceSecondaryTag:
 					PriceSecondary = PriceSecondaryTag.get_text()
@@ -330,7 +335,7 @@ class Parser:
 				if PriceDiscountTag:
 					PriceDiscount = PriceDiscountTag.get_text()
 					PriceDiscount = PriceDiscount.replace("НДС", "").replace(" ", "").replace("₽", "").replace("\u2009", "").strip()
-
+					
 				# Если не задано наименование.
 				if not Name:
 					# Поиск тега наименования.
@@ -340,17 +345,11 @@ class Parser:
 					if NameTag:
 						Name = NameTag.get_text().strip()
 
-				# print(Link)
-				# print(Name)
-				# print(PriceMain)
-				# print(PriceSecondary)
-				# print(PriceDiscount)
-				# print("============")
 				# Запись данных.
 				data[Model]["name"] = Name
 				data[Model]["yandex_price_main"] = PriceMain
 				data[Model]["yandex_price_secondary"] = PriceSecondary
-				data[Model]["yandex_price_discount"] = PriceDiscount
+				data[Model]["yandex_price_discount"] = PriceThird
 				
 		return data
 	

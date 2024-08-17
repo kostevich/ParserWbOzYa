@@ -95,9 +95,9 @@ class Writer:
 					self.__BufferYa["Модель"].append(Model)
 					self.__BufferYa["Название"].append(name)
 					self.__BufferYa["LinkYa"].append(yandex_link)
-					self.__BufferYa["Ya1"].append(yandex_price_discount)
+					self.__BufferYa["Ya1"].append(yandex_price_secondary)
 					self.__BufferYa["Ya2"].append(yandex_price_main)
-					self.__BufferYa["Ya3"].append(yandex_price_secondary)
+					self.__BufferYa["Ya3"].append(yandex_price_discount)
 					self.__BufferYa["yandex_code"].append(yandex_code)
 					
 				df = pandas.DataFrame.from_dict(self.__BufferYa)

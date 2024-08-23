@@ -321,6 +321,7 @@ class Parser:
 
 					if PriceMainOld: 
 						PriceThird = PriceMainOld.get_text()
+						PriceThird = PriceThird.replace("\u2009", "").strip()
 						PriceMainOld.decompose()
 
 					PriceMain = PriceMainTag.get_text()

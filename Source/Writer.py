@@ -56,7 +56,8 @@ class Writer:
 			ozon_price_discount = md[key]["ozon_price_discount"]
 			yandex_price_main = md[key]["yandex_price_main"]
 			yandex_price_secondary = md[key]["yandex_price_secondary"]
-			yandex_price_discount = md[key]["yandex_price_discount"]
+			if md[key]["yandex_price_discount"]: yandex_price_discount = md[key]["yandex_price_discount"]
+			else: yandex_price_discount = md[key]["yandex_price_main"]
 			
 
 			if wildberries_link: wildberries_link = f"=HYPERLINK(\"{wildberries_link}\", \"ссылка\")"
@@ -72,10 +73,9 @@ class Writer:
 					self.__BufferWb["Wb2"].append(wildberries_price_main)
 					self.__BufferWb["Wb3"].append(wildberries_price_secondary)
 					self.__BufferWb["wb_code"].append(wb_code)
-
+				
 				df = pandas.DataFrame.from_dict(self.__BufferWb)
 				df.to_excel(f"Output/{"wb_"}{today}.xlsx", index= False)
-
 
 			if "oz" in flags:
 				if ozon_link:
